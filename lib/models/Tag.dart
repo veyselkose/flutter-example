@@ -24,14 +24,12 @@ import 'package:amplify_core/amplify_core.dart' as amplify_core;
 import 'package:collection/collection.dart';
 
 
-/** This is an auto generated class representing the Post type in your schema. */
-class Post extends amplify_core.Model {
-  static const classType = const _PostModelType();
+/** This is an auto generated class representing the Tag type in your schema. */
+class Tag extends amplify_core.Model {
+  static const classType = const _TagModelType();
   final String id;
-  final String? _title;
-  final Blog? _blog;
-  final List<Comment>? _comments;
-  final List<PostTags>? _tags;
+  final String? _name;
+  final List<PostTags>? _posts;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
 
@@ -42,15 +40,15 @@ class Post extends amplify_core.Model {
   @override
   String getId() => id;
   
-  PostModelIdentifier get modelIdentifier {
-      return PostModelIdentifier(
+  TagModelIdentifier get modelIdentifier {
+      return TagModelIdentifier(
         id: id
       );
   }
   
-  String get title {
+  String get name {
     try {
-      return _title!;
+      return _name!;
     } catch(e) {
       throw amplify_core.AmplifyCodeGenModelException(
           amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -61,16 +59,8 @@ class Post extends amplify_core.Model {
     }
   }
   
-  Blog? get blog {
-    return _blog;
-  }
-  
-  List<Comment>? get comments {
-    return _comments;
-  }
-  
-  List<PostTags>? get tags {
-    return _tags;
+  List<PostTags>? get posts {
+    return _posts;
   }
   
   amplify_core.TemporalDateTime? get createdAt {
@@ -81,15 +71,13 @@ class Post extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const Post._internal({required this.id, required title, blog, comments, tags, createdAt, updatedAt}): _title = title, _blog = blog, _comments = comments, _tags = tags, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Tag._internal({required this.id, required name, posts, createdAt, updatedAt}): _name = name, _posts = posts, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Post({String? id, required String title, Blog? blog, List<Comment>? comments, List<PostTags>? tags}) {
-    return Post._internal(
+  factory Tag({String? id, required String name, List<PostTags>? posts}) {
+    return Tag._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
-      title: title,
-      blog: blog,
-      comments: comments != null ? List<Comment>.unmodifiable(comments) : comments,
-      tags: tags != null ? List<PostTags>.unmodifiable(tags) : tags);
+      name: name,
+      posts: posts != null ? List<PostTags>.unmodifiable(posts) : posts);
   }
   
   bool equals(Object other) {
@@ -99,12 +87,10 @@ class Post extends amplify_core.Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Post &&
+    return other is Tag &&
       id == other.id &&
-      _title == other._title &&
-      _blog == other._blog &&
-      DeepCollectionEquality().equals(_comments, other._comments) &&
-      DeepCollectionEquality().equals(_tags, other._tags);
+      _name == other._name &&
+      DeepCollectionEquality().equals(_posts, other._posts);
   }
   
   @override
@@ -114,10 +100,9 @@ class Post extends amplify_core.Model {
   String toString() {
     var buffer = new StringBuffer();
     
-    buffer.write("Post {");
+    buffer.write("Tag {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("title=" + "$_title" + ", ");
-    buffer.write("blog=" + (_blog != null ? _blog!.toString() : "null") + ", ");
+    buffer.write("name=" + "$_name" + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -125,44 +110,29 @@ class Post extends amplify_core.Model {
     return buffer.toString();
   }
   
-  Post copyWith({String? title, Blog? blog, List<Comment>? comments, List<PostTags>? tags}) {
-    return Post._internal(
+  Tag copyWith({String? name, List<PostTags>? posts}) {
+    return Tag._internal(
       id: id,
-      title: title ?? this.title,
-      blog: blog ?? this.blog,
-      comments: comments ?? this.comments,
-      tags: tags ?? this.tags);
+      name: name ?? this.name,
+      posts: posts ?? this.posts);
   }
   
-  Post copyWithModelFieldValues({
-    ModelFieldValue<String>? title,
-    ModelFieldValue<Blog?>? blog,
-    ModelFieldValue<List<Comment>?>? comments,
-    ModelFieldValue<List<PostTags>?>? tags
+  Tag copyWithModelFieldValues({
+    ModelFieldValue<String>? name,
+    ModelFieldValue<List<PostTags>?>? posts
   }) {
-    return Post._internal(
+    return Tag._internal(
       id: id,
-      title: title == null ? this.title : title.value,
-      blog: blog == null ? this.blog : blog.value,
-      comments: comments == null ? this.comments : comments.value,
-      tags: tags == null ? this.tags : tags.value
+      name: name == null ? this.name : name.value,
+      posts: posts == null ? this.posts : posts.value
     );
   }
   
-  Post.fromJson(Map<String, dynamic> json)  
+  Tag.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
-      _title = json['title'],
-      _blog = json['blog']?['serializedData'] != null
-        ? Blog.fromJson(new Map<String, dynamic>.from(json['blog']['serializedData']))
-        : null,
-      _comments = json['comments'] is List
-        ? (json['comments'] as List)
-          .where((e) => e?['serializedData'] != null)
-          .map((e) => Comment.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
-          .toList()
-        : null,
-      _tags = json['tags'] is List
-        ? (json['tags'] as List)
+      _name = json['name'],
+      _posts = json['posts'] is List
+        ? (json['posts'] as List)
           .where((e) => e?['serializedData'] != null)
           .map((e) => PostTags.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
           .toList()
@@ -171,34 +141,26 @@ class Post extends amplify_core.Model {
       _updatedAt = json['updatedAt'] != null ? amplify_core.TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'title': _title, 'blog': _blog?.toJson(), 'comments': _comments?.map((Comment? e) => e?.toJson()).toList(), 'tags': _tags?.map((PostTags? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'name': _name, 'posts': _posts?.map((PostTags? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
     'id': id,
-    'title': _title,
-    'blog': _blog,
-    'comments': _comments,
-    'tags': _tags,
+    'name': _name,
+    'posts': _posts,
     'createdAt': _createdAt,
     'updatedAt': _updatedAt
   };
 
-  static final amplify_core.QueryModelIdentifier<PostModelIdentifier> MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<PostModelIdentifier>();
+  static final amplify_core.QueryModelIdentifier<TagModelIdentifier> MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<TagModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
-  static final TITLE = amplify_core.QueryField(fieldName: "title");
-  static final BLOG = amplify_core.QueryField(
-    fieldName: "blog",
-    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Blog'));
-  static final COMMENTS = amplify_core.QueryField(
-    fieldName: "comments",
-    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Comment'));
-  static final TAGS = amplify_core.QueryField(
-    fieldName: "tags",
+  static final NAME = amplify_core.QueryField(fieldName: "name");
+  static final POSTS = amplify_core.QueryField(
+    fieldName: "posts",
     fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'PostTags'));
   static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Post";
-    modelSchemaDefinition.pluralName = "Posts";
+    modelSchemaDefinition.name = "Tag";
+    modelSchemaDefinition.pluralName = "Tags";
     
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
@@ -214,30 +176,16 @@ class Post extends amplify_core.Model {
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: Post.TITLE,
+      key: Tag.NAME,
       isRequired: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-      key: Post.BLOG,
-      isRequired: false,
-      targetNames: ['blogPostsId'],
-      ofModelName: 'Blog'
-    ));
-    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-      key: Post.COMMENTS,
-      isRequired: false,
-      ofModelName: 'Comment',
-      associatedKey: Comment.POST
-    ));
-    
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-      key: Post.TAGS,
+      key: Tag.POSTS,
       isRequired: false,
       ofModelName: 'PostTags',
-      associatedKey: PostTags.POST
+      associatedKey: PostTags.TAG
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
@@ -256,29 +204,29 @@ class Post extends amplify_core.Model {
   });
 }
 
-class _PostModelType extends amplify_core.ModelType<Post> {
-  const _PostModelType();
+class _TagModelType extends amplify_core.ModelType<Tag> {
+  const _TagModelType();
   
   @override
-  Post fromJson(Map<String, dynamic> jsonData) {
-    return Post.fromJson(jsonData);
+  Tag fromJson(Map<String, dynamic> jsonData) {
+    return Tag.fromJson(jsonData);
   }
   
   @override
   String modelName() {
-    return 'Post';
+    return 'Tag';
   }
 }
 
 /**
  * This is an auto generated class representing the model identifier
- * of [Post] in your schema.
+ * of [Tag] in your schema.
  */
-class PostModelIdentifier implements amplify_core.ModelIdentifier<Post> {
+class TagModelIdentifier implements amplify_core.ModelIdentifier<Tag> {
   final String id;
 
-  /** Create an instance of PostModelIdentifier using [id] the primary key. */
-  const PostModelIdentifier({
+  /** Create an instance of TagModelIdentifier using [id] the primary key. */
+  const TagModelIdentifier({
     required this.id});
   
   @override
@@ -296,7 +244,7 @@ class PostModelIdentifier implements amplify_core.ModelIdentifier<Post> {
   String serializeAsString() => serializeAsMap().values.join('#');
   
   @override
-  String toString() => 'PostModelIdentifier(id: $id)';
+  String toString() => 'TagModelIdentifier(id: $id)';
   
   @override
   bool operator ==(Object other) {
@@ -304,7 +252,7 @@ class PostModelIdentifier implements amplify_core.ModelIdentifier<Post> {
       return true;
     }
     
-    return other is PostModelIdentifier &&
+    return other is TagModelIdentifier &&
       id == other.id;
   }
   

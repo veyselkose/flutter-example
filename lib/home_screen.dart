@@ -15,6 +15,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   String? _value;
+  String? _valueTag;
   @override
   void initState() {
     initializeDateFormatting("tr_TR", null);
@@ -62,6 +63,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                               label: Text(blog!.name),
                               selected: _value == blog.id,
                               onSelected: (bool selected) {
+                                setState(() {
+                                  _value = selected ? blog.id : null;
+                                });
                                 ref
                                     .read(blogNotifierProvider.notifier)
                                     .getPosts(blog);
@@ -84,6 +88,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     );
                   },
                 ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  ref.read(blogNotifierProvider.notifier).createPost(
+                        "title",
+                        ref
+                            .read(blogNotifierProvider)
+                            .blogs
+                            .where((element) => element!.id == _value)
+                            .first,
+                      );
+                },
+                child: const Text("create post"),
               ),
             ]),
           ),
@@ -123,6 +140,89 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                               },
                               title: Text(posts[index]?.title ?? ""),
                               subtitle: Text(posts[index]?.id ?? ""),
+                            );
+                          },
+                        );
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.all(8),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  const Divider(),
+                  Text(
+                    "Selected Tag PostPosts",
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Consumer(
+                      builder: (_, WidgetRef ref, __) {
+                        final tags = ref.watch(
+                          blogNotifierProvider.select((value) => value.tags),
+                        );
+                        return Row(
+                          children: [
+                            for (final tag in tags)
+                              Padding(
+                                padding: const EdgeInsets.only(left: 4),
+                                child: ChoiceChip(
+                                  label: Text(tag!.name ?? ""),
+                                  selected: _valueTag == tag.id,
+                                  onSelected: (bool selected) {
+                                    setState(() {
+                                      _valueTag = selected ? tag.id : null;
+                                    });
+                                    ref
+                                        .read(blogNotifierProvider.notifier)
+                                        .getSelectedTagTags(
+                                          tag.id,
+                                        );
+                                    // ref
+                                    //     .read(blogNotifierProvider.notifier)
+                                    //     .deleteTag(tag.id);
+                                  },
+                                ),
+                              ),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                  Consumer(
+                    builder: (_, WidgetRef ref, __) {
+                      final posts = ref.watch(
+                        blogNotifierProvider
+                            .select((value) => value.selectedTagTags),
+                      );
+
+                      if (posts.isEmpty) {
+                        return const Center(
+                          child: Text("No posts"),
+                        );
+                      } else {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: posts.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              onTap: () {
+                                context.push(
+                                  "/post/${posts[index]?.post.id}",
+                                );
+                              },
+                              title: Text(posts[index]?.post.title ?? ""),
+                              subtitle: Text(posts[index]?.post.id ?? ""),
                             );
                           },
                         );

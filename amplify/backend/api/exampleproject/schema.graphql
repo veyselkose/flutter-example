@@ -16,6 +16,13 @@ type Post @model @auth(rules: [{ allow: private }]) {
   title: String!
   blog: Blog @belongsTo
   comments: [Comment] @hasMany
+  tags: [Tag] @manyToMany(relationName: "PostTags")
+}
+
+type Tag @model @auth(rules: [{ allow: private }]) {
+  id: ID!
+  name: String!
+  posts: [Post] @manyToMany(relationName: "PostTags")
 }
 
 

@@ -24,17 +24,21 @@ import 'Blog.dart';
 import 'BudgetEntry.dart';
 import 'Comment.dart';
 import 'Post.dart';
+import 'PostTags.dart';
+import 'Tag.dart';
 
 export 'Blog.dart';
 export 'BudgetEntry.dart';
 export 'Comment.dart';
 export 'Post.dart';
+export 'PostTags.dart';
+export 'Tag.dart';
 
 class ModelProvider implements amplify_core.ModelProviderInterface {
   @override
-  String version = "d65079ff255398f872a3a2b16fa6fa50";
+  String version = "5a2f75bb2e2f7701795004ddd056ae05";
   @override
-  List<amplify_core.ModelSchema> modelSchemas = [Blog.schema, BudgetEntry.schema, Comment.schema, Post.schema];
+  List<amplify_core.ModelSchema> modelSchemas = [Blog.schema, BudgetEntry.schema, Comment.schema, Post.schema, PostTags.schema, Tag.schema];
   @override
   List<amplify_core.ModelSchema> customTypeSchemas = [];
   static final ModelProvider _instance = ModelProvider();
@@ -51,6 +55,10 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return Comment.classType;
       case "Post":
         return Post.classType;
+      case "PostTags":
+        return PostTags.classType;
+      case "Tag":
+        return Tag.classType;
       default:
         throw Exception("Failed to find model in model provider for model name: " + modelName);
     }

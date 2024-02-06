@@ -106,7 +106,7 @@ class CommentNotifier extends AutoDisposeNotifier<CommentState> {
     if (response.hasErrors) {
       debugPrint(response.errors.toString());
     } else {
-      debugPrint("Get result: ${response.data?.items.length}");
+      debugPrint("Get Comment result: ${response.data?.items.length}");
       state = state.copyWith(comments: response.data!.items, loading: false);
     }
   }
