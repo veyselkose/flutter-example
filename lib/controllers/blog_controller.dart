@@ -84,7 +84,7 @@ class BlogNotifier extends Notifier<BlogState> {
   }
 
   Future<void> getBlogs() async {
-    print("called get blogs");
+    safePrint("called get blogs");
     state = state.copyWith(isLoading: true);
     final request = ModelQueries.list(
       Blog.classType,

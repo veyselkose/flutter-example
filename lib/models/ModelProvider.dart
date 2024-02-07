@@ -23,6 +23,8 @@ import 'package:amplify_core/amplify_core.dart' as amplify_core;
 import 'Blog.dart';
 import 'BudgetEntry.dart';
 import 'Comment.dart';
+import 'Event.dart';
+import 'EventComment.dart';
 import 'Post.dart';
 import 'PostTags.dart';
 import 'Tag.dart';
@@ -30,15 +32,17 @@ import 'Tag.dart';
 export 'Blog.dart';
 export 'BudgetEntry.dart';
 export 'Comment.dart';
+export 'Event.dart';
+export 'EventComment.dart';
 export 'Post.dart';
 export 'PostTags.dart';
 export 'Tag.dart';
 
 class ModelProvider implements amplify_core.ModelProviderInterface {
   @override
-  String version = "5a2f75bb2e2f7701795004ddd056ae05";
+  String version = "a2d87397bd227137f3482a9d98909556";
   @override
-  List<amplify_core.ModelSchema> modelSchemas = [Blog.schema, BudgetEntry.schema, Comment.schema, Post.schema, PostTags.schema, Tag.schema];
+  List<amplify_core.ModelSchema> modelSchemas = [Blog.schema, BudgetEntry.schema, Comment.schema, Event.schema, EventComment.schema, Post.schema, PostTags.schema, Tag.schema];
   @override
   List<amplify_core.ModelSchema> customTypeSchemas = [];
   static final ModelProvider _instance = ModelProvider();
@@ -53,6 +57,10 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return BudgetEntry.classType;
       case "Comment":
         return Comment.classType;
+      case "Event":
+        return Event.classType;
+      case "EventComment":
+        return EventComment.classType;
       case "Post":
         return Post.classType;
       case "PostTags":

@@ -1,4 +1,11 @@
-type BudgetEntry @model @auth(rules: [{allow: private, operations: [read]}, { allow: owner, operations: [create, delete, update]}]) {
+type BudgetEntry
+  @model
+  @auth(
+    rules: [
+      { allow: private, operations: [read] }
+      { allow: owner, operations: [create, delete, update] }
+    ]
+  ) {
   id: ID!
   title: String!
   description: String
@@ -25,11 +32,25 @@ type Tag @model @auth(rules: [{ allow: private }]) {
   posts: [Post] @manyToMany(relationName: "PostTags")
 }
 
-
 type Comment @model @auth(rules: [{ allow: private }]) {
   id: ID!
   content: String!
   createdAt: AWSDateTime!
-  type: String! @index(name: "commentsByDate" queryField: "commentsByDate" sortKeyFields: ["createdAt"])
+  type: String!
+    @index(name: "commentsByDate", queryField: "commentsByDate", sortKeyFields: ["createdAt"])
   post: Post @belongsTo
+}
+
+type Event @model @auth(rules: [{ allow: private }]) {
+  id: ID!
+  name: String!
+  where: String
+  description: String
+  comments: [EventComment] @hasMany
+}
+
+type EventComment @model @auth(rules: [{ allow: private }]) {
+  id: ID!
+  content: String!
+  event: Event @belongsTo
 }

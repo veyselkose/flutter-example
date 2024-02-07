@@ -21,7 +21,6 @@ class PostDetailScreen extends ConsumerStatefulWidget {
 }
 
 class _PostScreenState extends ConsumerState<PostDetailScreen> {
-  final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
@@ -92,7 +91,7 @@ class _PostScreenState extends ConsumerState<PostDetailScreen> {
                       for (final postTagItem in blogState.selectedPostTags)
                         ActionChip(
                           onPressed: () {},
-                          label: Text(postTagItem!.tag.name ?? ""),
+                          label: Text(postTagItem!.tag.name),
                         ),
                     ],
                   );

@@ -130,7 +130,6 @@ class _BlogSettingsViewState extends ConsumerState<BlogSettingsView> {
                       ),
                     );
                 _nameUpdateController.clear();
-                print(ref.read(blogNotifierProvider).blogs);
                 Navigator.pop(context);
               },
               child: const Text("blog update"),
@@ -171,7 +170,6 @@ class _BlogSettingsViewState extends ConsumerState<BlogSettingsView> {
                     _nameController.text,
                   );
               _nameController.clear();
-              print(ref.read(blogNotifierProvider).blogs);
               Navigator.pop(context);
             },
             child: const Text("blog create"),

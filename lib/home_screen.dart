@@ -45,6 +45,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       ref.read(blogNotifierProvider.notifier).getBlogs();
                     },
                   ),
+                  IconButton(
+                    icon: const Icon(Icons.home),
+                    onPressed: () {
+                      context.push("/event-home");
+                    },
+                  ),
                 ],
               ),
               SingleChildScrollView(
@@ -176,7 +182,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 4),
                                 child: ChoiceChip(
-                                  label: Text(tag!.name ?? ""),
+                                  label: Text(tag!.name),
                                   selected: _valueTag == tag.id,
                                   onSelected: (bool selected) {
                                     setState(() {

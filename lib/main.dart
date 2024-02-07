@@ -7,6 +7,7 @@ import "package:amplify_flutter/amplify_flutter.dart";
 import "package:example_project/amplifyconfiguration.dart";
 import "package:example_project/blog_settings_view.dart";
 import "package:example_project/comment_screen.dart";
+import "package:example_project/event_home_view.dart";
 import "package:example_project/home_screen.dart";
 import "package:example_project/models/ModelProvider.dart";
 import "package:example_project/post_detail_screen.dart";
@@ -44,6 +45,10 @@ class MyApp extends StatelessWidget {
       GoRoute(
         path: "/",
         builder: (context, state) => const HomeScreen(),
+      ),
+      GoRoute(
+        path: "/event-home",
+        builder: (context, state) => const EventHomeScreen(),
       ),
       GoRoute(
         path: "/blog-settings",

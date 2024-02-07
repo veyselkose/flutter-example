@@ -22,8 +22,6 @@ class CommentScreen extends ConsumerStatefulWidget {
 }
 
 class _PostScreenState extends ConsumerState<CommentScreen> {
-  final TextEditingController _controller = TextEditingController();
-
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -119,7 +117,7 @@ class _PostScreenState extends ConsumerState<CommentScreen> {
                               "dd MMMM yyyy HH:mm",
                               "tr_TR",
                             ).format(
-                              commentState.comments[index]?.createdAt!
+                              commentState.comments[index]?.createdAt
                                       .getDateTimeInUtc()
                                       .toLocal() ??
                                   DateTime.now(),
